@@ -1,12 +1,15 @@
 steps:
   - id: test-builds-successfully
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
-    dir: basic-config
-    entrypoint: /bin/bash
-    args: 
-      - '-c'
-      - |
-        gcloud builds submit --config cloudbuild.yaml
+    script: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      source /workspace/env
+      
+      echo "$(pwd)"
+      ls -al /workspace
+      ls -al 
+      gcloud builds submit --config cloudbuild.yaml
 
   - id: cleanup
     name: gcr.io/google.com/cloudsdktool/cloud-sdk
